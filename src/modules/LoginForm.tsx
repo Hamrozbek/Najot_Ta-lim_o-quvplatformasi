@@ -25,17 +25,17 @@ const LoginForm: React.FC = () => {
     };
 
     return (
-        <div className='w-full'>
-            <div className='flex items-center mb-[20px] justify-center gap-3'>
+        <div className='w-full pt-[30px]'>
+            <div className='flex items-center mb-[35px] justify-center gap-3'>
                 <LogoIcon classList='w-[70px] h-[70px]'/>
-                <span className='text-[20px] font-medium'>Admin paneli</span>
+                <span className='text-[30px] font-normal'>Admin paneli</span>
             </div>
             <Form autoComplete='off' className='w-full' name="login" style={{ maxWidth: 360 }} onFinish={onFinish}>
                 <Form.Item name="username" rules={[{ required: true, message: 'Iltimos username kriting!' }]}>
                     <Input size="large" allowClear prefix={<UserOutlined />} placeholder="Kirish" />
                 </Form.Item>
                 <Form.Item name="password" rules={[{ required: true, message: 'Iltimos parol kiriting' }]}>
-                    <Input.Password size='large' allowClear prefix={<LockOutlined />} type="password" placeholder="Maxfiy so'z" />
+                    <Input.Password size='large' prefix={<LockOutlined />} type="password" placeholder="Maxfiy so'z" />
                 </Form.Item>
                 <Button loading={isLoading} className='!bg-[#bc8e5b]' size="large" block type="primary" htmlType="submit">Kirish</Button>
             </Form>

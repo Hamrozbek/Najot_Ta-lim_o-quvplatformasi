@@ -33,3 +33,22 @@ body {
         transform: scale(1.5) rotateY(360deg);
     }
 }
+
+
+.logo {
+  opacity: 0.5;
+  filter: blur(2px);
+}
+
+.floating {
+  animation: float 25s linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(100vh) rotate(0deg);
+  }
+  to {
+    transform: translateY(-150px) rotate(360deg);
+  }
+}
