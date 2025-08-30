@@ -26,9 +26,9 @@ const LoginForm: React.FC = () => {
 
     return (
         <div className='w-full pt-[30px]'>
-            <div className='flex items-center mb-[35px] justify-center gap-3'>
-                <LogoIcon classList='w-[70px] h-[70px]'/>
-                <span className='text-[30px] font-normal'>Admin paneli</span>
+            <div className='flex items-center mb-[30px] justify-center gap-3'>
+                <LogoIcon classList='w-[80px] h-[80px]'/>
+                <span className='text-[30px] text-white font-medium'>Admin paneli</span>
             </div>
             <Form autoComplete='off' className='w-full' name="login" style={{ maxWidth: 360 }} onFinish={onFinish}>
                 <Form.Item name="username" rules={[{ required: true, message: 'Iltimos username kriting!' }]}>

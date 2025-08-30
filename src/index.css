@@ -34,21 +34,6 @@ body {
     }
 }
 
-
-.logo {
-  opacity: 0.5;
-  filter: blur(2px);
-}
-
-.floating {
-  animation: float 25s linear infinite;
-}
-
-@keyframes float {
-  from {
-    transform: translateY(100vh) rotate(0deg);
-  }
-  to {
-    transform: translateY(-150px) rotate(360deg);
-  }
+.ant-menu-item-selected{
+  background-color: var(--clr-gold) !important;
 }
