@@ -6,6 +6,7 @@
 
 body {
     background-color: #f1f0ee;
+    overflow-y: hidden;
 }
 
 .ant-input-outlined:hover {
@@ -34,6 +35,11 @@ body {
     }
 }
 
-.ant-menu-item-selected{
-  background-color: var(--clr-gold) !important;
+.ant-menu-item-selected {
+    background-color: var(--clr-gold) !important;
+}
+
+.ant-upload{
+    width: 400px !important;
+    height: 200px !important;
 }

@@ -1,10 +1,7 @@
 import PATH from "./PATH";
 import PageLoading from "./PageLoading";
-import YoqlamaPage from "./YoqlamaPage";
-import VideolarPage from "./VideolarPage";
-import Uy_vazefalarPage from "./Uy_vazefalarPage";
-import ImtihonPage from "./Imtihonpage";
-import JurnalPage from "./JurnalPage";
-import OqtuvchiPage from "./OqtuvchiPage";
+import PageCaption from "./PageCaption";
+import UploadFile from "./UploadFile";
+import StackSkeleton from "./skeleton/StackSkeleton";
 
-export {PATH, PageLoading,YoqlamaPage, VideolarPage, Uy_vazefalarPage,ImtihonPage, JurnalPage, OqtuvchiPage}
+export {PATH, PageLoading, PageCaption, UploadFile, StackSkeleton}

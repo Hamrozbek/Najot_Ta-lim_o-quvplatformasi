@@ -5,6 +5,8 @@ import LoginHome from "./auth/LoginHome";
 import Stacks from "./dashboard/Stacks";
 import Teachers from "./dashboard/Teachers";
 import Students from "./dashboard/Students";
+import StackCreate from "./dashboard/StackCreate";
+import CreateCaption from "../components/CreateCaption";
 
 const Login = lazy(() =>
     import("./auth/Login").then(
@@ -16,4 +18,4 @@ const Login = lazy(() =>
 );
 
 
-export { Login, DashboarHome, Grops, LoginHome, Stacks, Students, Teachers }  
+export { Login, DashboarHome, Grops, LoginHome, Stacks, Students, Teachers, StackCreate, CreateCaption }  

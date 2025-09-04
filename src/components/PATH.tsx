@@ -4,7 +4,8 @@ const PATH = {
     gropus: "/groups",
     teachers: "/teachers",
     students: "/students",
-    stacks: "/stacks"
+    stacks: "/stacks",
+    stacksCreate: "/stacks/create"
 }
 
 export default PATH

@@ -3,7 +3,7 @@ import { PATH } from "../../components";
 
 const DashboarHome = () => {
   useEffect(() => {
-    location.pathname = PATH.gropus
+    location.pathname = PATH.stacks
   }, [])
   return "";
 }

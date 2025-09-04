@@ -23,7 +23,7 @@ const Navbar:FC<{collapse:boolean}> = ({collapse}) => {
   console.log(me);
   
   return (
-    <div className={`${collapse ? "w-[80px]" : "w-[18%]"} duration-300 h-[100vh] bg-[#001529]`}>
+    <div className={`${collapse ? "w-[80px]" : "w-[18%]"} overflow-y-auto duration-300 h-[100vh] bg-[#001529]`}>
       <div className="p-[8px] mb-[10px] border-b-[1px] flex items-center gap-[10px] border-white">
         <LogoIcon classList="!w-[55px]" />
         {collapse ? "" : <span className="font-medium text-[20px] text-white capitalize">{me.role?.toLowerCase()}</span>}

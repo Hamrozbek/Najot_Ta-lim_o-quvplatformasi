@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import { PATH } from "../components"
-import { DashboarHome, Grops, Stacks, Students, Teachers } from "../pages"
+import { DashboarHome, Grops, StackCreate, Stacks, Students, Teachers } from "../pages"
 import { Header, Navbar } from "../modules"
 import { useState } from "react"
 
@@ -11,7 +11,8 @@ const DashboardRoutes = () => {
     {id:2, path:PATH.gropus, element:<Grops/>},
     {id:3, path:PATH.teachers, element:<Teachers/>},
     {id:4, path:PATH.students, element:<Students/>},
-    {id:5, path:PATH.home, element:<DashboarHome/>}
+    {id:5, path:PATH.home, element:<DashboarHome/>},
+    {id:6, path:PATH.stacksCreate, element:<StackCreate/>}
   ] 
 
   return (
