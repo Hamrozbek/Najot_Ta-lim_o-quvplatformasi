@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react"
 import { UploadFile } from "../../components"
 import CreateCaption from "../../components/CreateCaption"
-import { Input } from "antd"
+import { Input, message } from "antd"
 import { instance } from "../../hooks"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
@@ -14,8 +14,14 @@ const StackCreate = () => {
 
     console.log(image);
     function handleCreateStack(e: FormEvent<HTMLFormElement>) {
-        setIsLoading(true)
         e.preventDefault()
+
+        if(!image || !name.trim()){
+            message.error("Iltimos barcha maydonlarni to'ldiring!")
+            return
+        }
+
+        setIsLoading(true)
         const data = { image, name }
         console.log(data);
         instance().post("/stacks", data).then(() => {

@@ -1,8 +1,9 @@
+import { PageCaption } from "../../components"
 
 const Students = () => {
   return (
-    <div>
-      Students
+    <div className="p-5">
+      <PageCaption title="Students" count={10}/>
     </div>
   )
 }

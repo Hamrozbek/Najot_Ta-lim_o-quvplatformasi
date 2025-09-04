@@ -35,7 +35,7 @@ const Stacks = () => {
     <div className="p-5">
       <div className="bg-white overflow-y-auto h-[100vh] p-5 rounded-md">
         <PageCaption title="Yo'nalishlar" count={stacks.length} />
-        <div className="flex justify-center flex-wrap gap-8 mt-[20px] pb-20">
+        <div className="flex justify-between flex-wrap gap-8 mt-[20px] pb-20">
           {loading ? <StackSkeleton /> : stacks.map(item => (
             <Card key={item.id} hoverable style={{ width: 300 }} cover={<img className="h-[180px] w-[300px] object-cover" alt="example" src={`${API}/file/${item.image}`} />}>
               <Card.Meta title={item.name} description={`Yaratilgan sana: ${item.createdAt.split("T")[0]}`} />

@@ -12,7 +12,7 @@ const LoginForm: React.FC = () => {
     const [, setCookies] = useCookies(["accessToken"])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const onFinish = (values: any) => {
-        setIsLoading(true)
+        setIsLoading(true) 
         axios.post(`${API}/user/login`, values).then(res => {
             toast.success("Muvaffaqiyatli kirdingiz!", {
                 onClose: () => {
