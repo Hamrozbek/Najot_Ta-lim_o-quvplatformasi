@@ -43,3 +43,9 @@ body {
     width: 400px !important;
     height: 200px !important;
 }
+
+.ant-btn-color-default:hover{
+    border-color: var(--clr-gold) !important;
+    box-shadow: 0 0 0 2px rgba(188, 143, 91, 0.08) !important;
+    color: var(--clr-gold) !important;
+}

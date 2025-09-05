@@ -1,4 +1,4 @@
-import React, { useState, type Dispatch, type SetStateAction } from 'react';
+import React, { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Flex, message, Upload } from 'antd';
 import type { GetProp, UploadProps } from 'antd';
@@ -24,7 +24,7 @@ const beforeUpload = (file: FileType) => {
   return isJpgOrPng && isLt2M;
 };
 
-const UploadFile: React.FC<{setImage:Dispatch<SetStateAction<string>>}> = ({setImage}) => {
+const UploadFile: React.FC<{ image: string, setImage: Dispatch<SetStateAction<string>> }> = ({ image, setImage }) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
@@ -34,7 +34,6 @@ const UploadFile: React.FC<{setImage:Dispatch<SetStateAction<string>>}> = ({setI
       return;
     }
     if (info.file.status === 'done') {
-      // Get this url from response in real world.
       getBase64(info.file.originFileObj as FileType, (url) => {
         setLoading(false);
         setImageUrl(url);
@@ -49,6 +48,13 @@ const UploadFile: React.FC<{setImage:Dispatch<SetStateAction<string>>}> = ({setI
       <div style={{ marginTop: 8 }}>Upload</div>
     </button>
   );
+
+  useEffect(() => {
+    if (image) {
+      setImageUrl(image)
+    }
+  }, [image])
+
 
   return (
     <Flex gap="middle" wrap>

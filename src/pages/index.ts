@@ -2,10 +2,14 @@ import { lazy } from "react";
 import DashboarHome from "./dashboard/DashboarHome";
 import Grops from "./dashboard/Grops";
 import LoginHome from "./auth/LoginHome";
-import Stacks from "./dashboard/Stacks";
+
+import Stacks from "./dashboard/stacks/Stacks";
+import StackCreate from "./dashboard/stacks/StackCreate";
+import StackMore from "./dashboard/stacks/StackMore";
+
+
 import Teachers from "./dashboard/Teachers";
 import Students from "./dashboard/Students";
-import StackCreate from "./dashboard/StackCreate";
 import CreateCaption from "../components/CreateCaption";
 
 const Login = lazy(() =>
@@ -18,4 +22,4 @@ const Login = lazy(() =>
 );
 
 
-export { Login, DashboarHome, Grops, LoginHome, Stacks, Students, Teachers, StackCreate, CreateCaption }  
+export { Login, DashboarHome, Grops, LoginHome, Stacks, Students, Teachers, StackCreate, CreateCaption, StackMore }  
