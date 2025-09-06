@@ -2,5 +2,7 @@ export interface StackType{
     id: number,
     name: string,
     image: string,
-    createdAt: string
+    createdAt: string,
+    label: string,
+    value:number
 }

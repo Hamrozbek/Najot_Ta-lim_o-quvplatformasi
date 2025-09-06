@@ -1,10 +1,9 @@
 import React from 'react';
 import { Table } from 'antd';
 
-const CustomTable: React.FC<{ columns: any[], data: any[] }> = ({ columns, data }) => {
-  const isLoading = !data || data.length === 0;
+const CustomTable: React.FC<{ columns: any[], data: any[], loading?:boolean }> = ({ columns, data, loading }) => {
   return (
-    <Table loading={isLoading} columns={columns} dataSource={data} />
+    <Table loading={loading} columns={columns} dataSource={data} />
   )
 };
 

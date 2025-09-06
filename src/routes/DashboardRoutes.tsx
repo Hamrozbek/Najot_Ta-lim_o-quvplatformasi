@@ -3,7 +3,7 @@ import { PATH } from "../components"
 import { DashboarHome, Grops, StackCreate, StackMore, Stacks, Students, Teachers } from "../pages"
 import { Header, Navbar } from "../modules"
 import { useState } from "react"
-import GroupCreate from "../pages/dashboard/GroupCreate"
+import GroupCreate from "../pages/dashboard/Groups/GroupCreate"
 import TeacherCreate from "../pages/dashboard/TeacherCreate"
 import StudentsCreate from "../pages/dashboard/StudentsCreate"
 

@@ -46,7 +46,6 @@ const StackMore = () => {
     }
     // Delete part
 
-
     useEffect(() => {
         instance().get(`/stacks/${id}`).then(res => {
             setStackData(res.data)
@@ -54,6 +53,7 @@ const StackMore = () => {
     }, [])
 
     // shu stack guruh 
+    const [groupsLoading, setGroupsLoading] = useState<boolean>(false)
     const [stackGroups, setStackGroups] = useState([])
     const column = [
         { title: "ID", dataIndex: "id" },
@@ -63,15 +63,6 @@ const StackMore = () => {
         { title: "Batafsil", dataIndex: "action" }
     ]
 
-    // handleMoreBtn part 
-    const [selectedGroup, setSelectedGroup] = useState<GroupsType | null>(null)
-    const [groupModal, setGroupModal] = useState<boolean>(false)
-    function handleMoreBtn(group: GroupsType) {
-        setSelectedGroup(group)
-        setGroupModal(true)
-    }
-    // handleMoreBtn part 
-
     // shu stackdagai guruhlar 
     useEffect(() => {
         instance().get("/groups", { params: { stackId: id } }).then(res => {
@@ -79,9 +70,10 @@ const StackMore = () => {
                 item.key = index + 1
                 item.roomName = item.room.name
                 item.stackName = item.stack.name
-                item.action = <Button onClick={() => handleMoreBtn(item)} size="middle" type="primary" className="!bg-[#bc8e5b] !text-[20px]" icon={<MoreOutlined />}></Button>
+                item.action = <Button size="middle" type="primary" className="!bg-[#bc8e5b] !text-[20px]" icon={<MoreOutlined />}></Button>
                 return item
             }));
+            setGroupsLoading(false)
         })
     }, [])
 
@@ -115,18 +107,8 @@ const StackMore = () => {
                 <img className="rounded-md object-cover" src={`${API}/file/${stackData?.image}`} alt="stack img" width={350} height={250} />
             </div>
             <div className="mt-10 mb-10">
-                <CustomTable columns={column} data={stackGroups} />
+                <CustomTable loading={groupsLoading} columns={column} data={stackGroups} />
             </div>
-
-            <Modal open={groupModal} onCancel={() => setGroupModal(false)} footer={false} title="Guruh haqida ma'lumot">
-                <ul className="space-y-3">
-                    <li><b>ID:</b> {selectedGroup?.id}</li>
-                    <li><b>Nomi:</b> {selectedGroup?.name}</li>
-                    <li><b>Xona:</b> {selectedGroup?.roomName}</li>
-                    <li><b>Yo‘nalish:</b> {selectedGroup?.stackName}</li>
-                    <li><b>Yaratilgan vaqti:</b> {selectedGroup?.createdAt?.split("T")[0]} & {selectedGroup?.createdAt?.split("T")[1]?.split(".")[0]}</li>
-                </ul>
-            </Modal>
 
             <Modal confirmLoading={deletLoading} okText="O'chirish" cancelText="Bekor qilish" okButtonProps={{ type: "primary", className: "!bg-[#bc8e5b]" }} open={deleteModal} onCancel={() => setDeleteModal(false)} onOk={handleDeleteStack} title={"O'chirmoqchimisiz ?"}></Modal>
         </div>

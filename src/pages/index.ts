@@ -1,6 +1,6 @@
 import { lazy } from "react";
 import DashboarHome from "./dashboard/DashboarHome";
-import Grops from "./dashboard/Grops";
+import Grops from "./dashboard/Groups/Grops";
 import LoginHome from "./auth/LoginHome";
 
 import Stacks from "./dashboard/stacks/Stacks";
