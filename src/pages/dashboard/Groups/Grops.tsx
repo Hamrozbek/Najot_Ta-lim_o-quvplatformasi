@@ -7,9 +7,12 @@ import { MoreOutlined } from "@ant-design/icons"
 import type { StackType } from "../../../@types/StackType"
 import debounce from "../../../hooks/debounce"
 import type { TeacherType } from "../../../@types/Teachertype"
+import { useNavigate } from "react-router-dom"
 
 
 const Grops = () => {
+  const navigate = useNavigate()
+
   const column = [
     { title: "Id", dataIndex: "key" },
     { title: "Guruh nomi", dataIndex: "name" },
@@ -30,7 +33,7 @@ const Grops = () => {
     setLoading(true)
   }
   // search part 
- 
+
   // stack change part 
   const [stackId, setStackId] = useState<string | null>(null)
   function handleChooseStack(e: string) {
@@ -56,7 +59,7 @@ const Grops = () => {
         item.key = index + 1
         item.roomName = item.room.name
         item.stackName = item.stack.name
-        item.action = <Button size="middle" icon={<MoreOutlined className="!text-[18px]" />} type="primary" className="!bg-[#bc8e5b] !p-0"></Button>
+        item.action = <Button onClick={() => handleMore(item.id)} size="middle" icon={<MoreOutlined className="!text-[18px]" />} type="primary" className="!bg-[#bc8e5b] !p-0"></Button>
         return item
       }))
     }).finally(() => {
@@ -64,6 +67,11 @@ const Grops = () => {
     })
   }, [name, mainTeacherId, stackId])
   // groups get all 
+  
+  function handleMore(id: number) {
+    setLoading(true)
+    navigate(`/groups/${id}`)
+  }
 
   // stack get all
   useEffect(() => {
@@ -88,7 +96,7 @@ const Grops = () => {
         item.label = `${item.name} - ${item.surname}`
         item.value = item.id
         return item
-      })) 
+      }))
     }).finally(() => {
       setLoading(false)
     })
@@ -105,7 +113,7 @@ const Grops = () => {
         <Select onChange={handleChooseTeacher} className="!w-[300px]" size="large" showSearch placeholder="Ustoz tanlang" optionFilterProp="lable" allowClear options={teachers} />
       </div>
       <div className="mt-5">
-        <CustomTable loading={loading} columns={column} data={groups}/>
+        <CustomTable loading={loading} columns={column} data={groups} />
       </div>
     </div>
   )

@@ -7,6 +7,7 @@
 body {
     background-color: #f1f0ee;
     overflow-y: hidden;
+    height: 100%;
 }
 
 .ant-input-outlined:hover {
@@ -52,4 +53,8 @@ body {
 
 .ant-spin-dot{
     color: var(--clr-gold) !important;
+}
+
+.ant-select-selector:hover{
+    border-color: var(--clr-gold) !important;
 }

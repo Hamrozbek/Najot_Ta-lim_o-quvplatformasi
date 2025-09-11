@@ -8,8 +8,14 @@ import StackCreate from "./dashboard/stacks/StackCreate";
 import StackMore from "./dashboard/stacks/StackMore";
 
 
-import Teachers from "./dashboard/Teachers";
-import Students from "./dashboard/Students";
+import Teachers from "./dashboard/Teacher/Teachers";
+import TeacherCreate from "./dashboard/Teacher/TeacherCreate";
+import TeacherMore from "./dashboard/Teacher/TeacherMore";
+
+import Students from "./dashboard/Students/Students";
+import StudentsCreate from "./dashboard/Students/StudentsCreate";
+import StudentsMore from "./dashboard/Students/StudentsMore";
+
 import CreateCaption from "../components/CreateCaption";
 
 const Login = lazy(() =>
@@ -22,4 +28,4 @@ const Login = lazy(() =>
 );
 
 
-export { Login, DashboarHome, Grops, LoginHome, Stacks, Students, Teachers, StackCreate, CreateCaption, StackMore }  
+export { Login, DashboarHome, Grops, LoginHome, Stacks, Students, Teachers, StackCreate, CreateCaption, StackMore, TeacherCreate, TeacherMore, StudentsCreate, StudentsMore }  

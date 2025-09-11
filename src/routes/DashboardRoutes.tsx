@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router-dom"
 import { PATH } from "../components"
-import { DashboarHome, Grops, StackCreate, StackMore, Stacks, Students, Teachers } from "../pages"
+import { DashboarHome, Grops, StackCreate, StackMore, Stacks, Students, StudentsCreate, StudentsMore, TeacherCreate, TeacherMore, Teachers } from "../pages"
 import { Header, Navbar } from "../modules"
 import { useState } from "react"
 import GroupCreate from "../pages/dashboard/Groups/GroupCreate"
-import TeacherCreate from "../pages/dashboard/TeacherCreate"
-import StudentsCreate from "../pages/dashboard/StudentsCreate"
+import GroupsMore from "../pages/dashboard/Groups/GroupsMore"
 
 const DashboardRoutes = () => {
   const [collapse, setCollapse] = useState<boolean>(false)
@@ -19,8 +18,14 @@ const DashboardRoutes = () => {
     {id:7, path:PATH.stacksUpdate, element:<StackCreate/>},
     {id:8, path:PATH.stacksMore, element:<StackMore/>},
     {id:9, path:PATH.groupsCreate, element:<GroupCreate/>},
-    {id:10, path:PATH.teachersCreate, element:<TeacherCreate/>},
-    {id:11, path:PATH.studentsCreate, element:<StudentsCreate/>}
+    {id:10, path:PATH.groupsUpdate, element:<GroupCreate/>},
+    {id:11, path:PATH.groupsMore, element:<GroupsMore/>},
+    {id:12, path:PATH.teachersCreate, element:<TeacherCreate/>},  
+    {id:13, path:PATH.teachersUpdate, element:<TeacherCreate/>},
+    {id:14, path:PATH.teachersMore, element:<TeacherMore/>},
+    {id:15, path:PATH.studentsCreate, element:<StudentsCreate/>},
+    {id:16, path:PATH.studentsUpdate, element:<StudentsCreate/>},
+    {id:17, path:PATH.studentsMore, element:<StudentsMore/>},
   ] 
 
   return (

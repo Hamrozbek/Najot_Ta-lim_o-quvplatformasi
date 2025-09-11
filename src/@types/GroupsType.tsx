@@ -22,5 +22,7 @@ export interface GroupsType {
     key: number,
     roomName?:string,
     stackName?:string,
-    action:ReactNode
+    action:ReactNode,
+    label?:string,
+    value?:number
 }
