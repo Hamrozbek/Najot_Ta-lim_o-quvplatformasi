@@ -6,6 +6,7 @@ import { Button, Modal, Spin } from "antd";
 import { toast } from "react-toastify";
 import { CustomTable } from "../../../components";
 import type { TeacherType } from "../../../@types/Teachertype";
+import type { GroupsType } from "../../../@types/GroupsType";
 
 const TeacherMore = () => {
   const navigate = useNavigate();
@@ -15,16 +16,16 @@ const TeacherMore = () => {
   const [loading, setLoading] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const [teacherGroups, setTeacherGroups] = useState<any[]>([]);
+  const [teacherGroups, setTeacherGroups] = useState<GroupsType[]>([]);
 
   // Table columns
   const groupColumns = [
     { title: "ID", dataIndex: "key" },
     { title: "Guruh nomi", dataIndex: "name" },
-    { title: "Yo‘nalish", render: (record: any) => record.stack?.name || "" },
-    { title: "Xona", render: (record: any) => record.room?.name || "" },
-    { title: "Status", render: (record: any) => record.status?.name || "Aktiv emas" },
-    { title: "Yaratilgan sana", render: (record: any) => record.createdAt?.split("T")[0] || "" },
+    { title: "Yo‘nalish", render: (record: GroupsType) => record.stack?.name || "" },
+    { title: "Xona", render: (record: GroupsType) => record.room?.name || "" },
+    { title: "Status", render: (record: GroupsType) => record.status || "Aktiv emas" },
+    { title: "Yaratilgan sana", render: (record: GroupsType) => record.createdAt?.split("T")[0] || "" },
   ];
 
   // Fetch teacher info
