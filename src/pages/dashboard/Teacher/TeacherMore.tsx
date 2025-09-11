@@ -4,34 +4,34 @@ import { instance } from "../../../hooks";
 import { ArrowLeftOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Modal, Spin } from "antd";
 import { toast } from "react-toastify";
-import type { TeacherType } from "../../../@types/Teachertype";
 import { CustomTable } from "../../../components";
+import type { TeacherType } from "../../../@types/Teachertype";
 
 const TeacherMore = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [loading, setLoading] = useState(false);
+
   const [teacherData, setTeacherData] = useState<TeacherType | null>(null);
+  const [loading, setLoading] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const [teacherGroups, setTeacherGroups] = useState<TeacherType[]>([]);
+  const [teacherGroups, setTeacherGroups] = useState<any[]>([]);
 
-  // Columns for groups table
+  // Table columns
   const groupColumns = [
     { title: "ID", dataIndex: "key" },
     { title: "Guruh nomi", dataIndex: "name" },
-    { title: "Yo‘nalish", render: (record: any) => record.stack?.name },
-    { title: "Xona", render: (record: any) => record.room?.name },
+    { title: "Yo‘nalish", render: (record: any) => record.stack?.name || "" },
+    { title: "Xona", render: (record: any) => record.room?.name || "" },
     { title: "Status", render: (record: any) => record.status?.name || "Aktiv emas" },
-    { title: "Yaratilgan sana", render: (record: any) => record.createdAt?.split("T")[0] },
+    { title: "Yaratilgan sana", render: (record: any) => record.createdAt?.split("T")[0] || "" },
   ];
-
 
   // Fetch teacher info
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    instance().get(`/teachers/${id}`).then(res => setTeacherData(res.data.data || res.data))
+    instance().get(`/teachers/${id}`).then(res => setTeacherData(res.data))
       .catch(() => toast.error("O'qituvchi ma'lumotini olishda xatolik"))
       .finally(() => setLoading(false));
   }, [id]);
@@ -43,9 +43,12 @@ const TeacherMore = () => {
       instance().get(`/groups?mainTeacherId=${id}`),
       instance().get(`/groups?assistantTeacherId=${id}`)
     ]).then(([mainRes, assistantRes]) => {
-      const allGroups = [...mainRes.data.data, ...assistantRes.data.data].map((item, index) => ({ ...item, key: index }));
-      setTeacherGroups(allGroups);
-    })
+        const allGroups = [...mainRes.data.data, ...assistantRes.data.data].map((item, index) => ({
+          ...item,
+          key: index
+        }));
+        setTeacherGroups(allGroups);
+      })
       .catch(() => toast.error("Ustoz guruhlarini olishda xatolik"));
   }, [id]);
 
@@ -53,11 +56,11 @@ const TeacherMore = () => {
   const handleDeleteTeacher = () => {
     setDeleteLoading(true);
     instance().delete(`/teachers/${id}`).then(() => {
-      toast.success("O‘qituvchi o‘chirildi!", {
-        onClose: () => navigate(-1),
-        autoClose: 800
-      });
-    })
+        toast.success("O‘qituvchi o‘chirildi!", {
+          onClose: () => navigate(-1),
+          autoClose: 800
+        });
+      })
       .catch(() => toast.error("O‘chirishda xatolik"))
       .finally(() => setDeleteLoading(false));
   };
@@ -83,7 +86,7 @@ const TeacherMore = () => {
         </div>
         <div className="flex items-center gap-4">
           <Button onClick={() => setDeleteModal(true)} className="!bg-red-500" size="large" type="primary" icon={<DeleteOutlined className="!text-[20px]" />} />
-          <Button onClick={() => navigate(`/students/${id}/update`)} className="!bg-green-600" size="large" type="primary" icon={<EditOutlined className="!text-[20px]" />}>
+          <Button onClick={() => navigate(`/teachers/${id}/update`)} className="!bg-green-600" size="large" type="primary" icon={<EditOutlined className="!text-[20px]" />}>
             O‘zgartirish
           </Button>
         </div>
@@ -93,12 +96,12 @@ const TeacherMore = () => {
       {teacherData && (
         <div className="mt-10 flex justify-center gap-10">
           <div className="p-5 space-y-5 border-2 border-gray-400 rounded-md w-[40%]">
-            <p><b>ID:</b>{teacherData.id}</p>
-            <p><b>Ismi:</b>{teacherData.name}</p>
+            <p><b>ID:</b> {teacherData.id}</p>
+            <p><b>Ismi:</b> {teacherData.name}</p>
             <p><b>Familiyasi:</b> {teacherData.surname}</p>
             <p><b>Yo‘nalish:</b> {teacherData.stack?.name}</p>
             <p><b>Yosh:</b> {teacherData.age} Yosh</p>
-            <p><b>Status: </b>{teacherData.status?.name}</p>
+            <p><b>Status:</b> {teacherData.status?.name}</p>
           </div>
           <div className="p-5 space-y-5 border-2 border-gray-400 rounded-md w-[40%]">
             <p><b>Telefon:</b> {teacherData.phone}</p>

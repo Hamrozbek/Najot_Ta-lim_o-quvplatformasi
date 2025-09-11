@@ -91,7 +91,7 @@ const TeacherForm = () => {
 
     request
       .then(() => {
-        toast.success(id ? "O‘qituvchi" : "O‘qituvchi", { autoClose: 1000, onClose: () => navigate(-1) })
+        toast.success(id ? "O‘qituvchi qo'shildi" : "O‘qituvchi yangilandi", { autoClose: 1000, onClose: () => navigate(-1) })
       })
       .finally(() => setLoading(false))
   }
