@@ -24,7 +24,7 @@ const TeacherMore = () => {
     { title: "Guruh nomi", dataIndex: "name" },
     { title: "Yo‘nalish", render: (record: GroupsType) => record.stack?.name || "" },
     { title: "Xona", render: (record: GroupsType) => record.room?.name || "" },
-    { title: "Status", render: (record: GroupsType) => record.status || "Aktiv emas" },
+    { title: "Status", render: (record: GroupsType) => record.status ? "Faol" : "Nofaol"},
     { title: "Yaratilgan sana", render: (record: GroupsType) => record.createdAt?.split("T")[0] || "" },
   ];
 
@@ -44,12 +44,12 @@ const TeacherMore = () => {
       instance().get(`/groups?mainTeacherId=${id}`),
       instance().get(`/groups?assistantTeacherId=${id}`)
     ]).then(([mainRes, assistantRes]) => {
-        const allGroups = [...mainRes.data.data, ...assistantRes.data.data].map((item, index) => ({
-          ...item,
-          key: index
-        }));
-        setTeacherGroups(allGroups);
-      })
+      const allGroups = [...mainRes.data.data, ...assistantRes.data.data].map((item, index) => ({
+        ...item,
+        key: index
+      }));
+      setTeacherGroups(allGroups);
+    })
       .catch(() => toast.error("Ustoz guruhlarini olishda xatolik"));
   }, [id]);
 
@@ -57,11 +57,11 @@ const TeacherMore = () => {
   const handleDeleteTeacher = () => {
     setDeleteLoading(true);
     instance().delete(`/teachers/${id}`).then(() => {
-        toast.success("O‘qituvchi o‘chirildi!", {
-          onClose: () => navigate(-1),
-          autoClose: 800
-        });
-      })
+      toast.success("O‘qituvchi o‘chirildi!", {
+        onClose: () => navigate(-1),
+        autoClose: 800
+      });
+    })
       .catch(() => toast.error("O‘chirishda xatolik"))
       .finally(() => setDeleteLoading(false));
   };

@@ -5,20 +5,30 @@ import { ArrowLeftOutlined, DeleteOutlined, EditOutlined } from "@ant-design/ico
 import { Button, Modal, Spin } from "antd"
 import { toast } from "react-toastify"
 import type { StudentType } from "../../../@types/StudentType"
+import type { TeacherType } from "../../../@types/Teachertype"
 
 const StudentsMore = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const [studentData, setStudentData] = useState<StudentType>()
+    const [teacher, setTeacher] = useState<TeacherType>()
     const [loading, setLoading] = useState<boolean>(false)
     const [deleteModal, setDeleteModal] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
+
 
     // Student ma'lumotlarini olish
     useEffect(() => {
         if (!id) return
         setLoading(true)
-        instance().get(`/students/${id}`).then(res => setStudentData(res.data))
+        instance().get(`/students/${id}`)
+            .then(async (res) => {
+                setStudentData(res.data)
+                if (res.data.teacherId) {
+                    const teacherRes = await instance().get(`/teachers/${res.data.teacherId}`)
+                    setTeacher(teacherRes.data)
+                }
+            })
             .catch(() => toast.error("Student ma'lumotini olishda xatolik"))
             .finally(() => setLoading(false))
     }, [id])
@@ -37,8 +47,8 @@ const StudentsMore = () => {
                 autoClose: 800,
             })
         })
-            .catch(() => toast.error("O‘chirishda xatolik"))
-            .finally(() => setDeleteLoading(false))
+        .catch(() => toast.error("O‘chirishda xatolik"))
+        .finally(() => setDeleteLoading(false))
     }
 
     return (
@@ -113,7 +123,21 @@ const StudentsMore = () => {
                                 <p className="text-[18px] font-semibold">{studentData?.groupId}</p>
                             </div>
                         </div>
-                    </div>                
+                    </div>
+
+                    <div className="mt-10 border-t border-slate-600 pt-5">
+                        <h2 className="text-[20px] font-bold mb-3">Ustoz ma’lumotlari</h2>
+                        {teacher ? (
+                            <div className="space-y-3">
+                                <p><span className="text-slate-500">Ismi:</span> {teacher.name}</p>
+                                <p><span className="text-slate-500">Familiyasi:</span> {teacher.surname}</p>
+                                <p><span className="text-slate-500">Email:</span> {teacher.email}</p>
+                                <p><span className="text-slate-500">Telefon:</span> {teacher.phone}</p>
+                            </div>
+                        ) : (
+                            <p className="text-slate-500">Ustoz topilmadi</p>
+                        )}
+                    </div>
                 </>
             )}
 

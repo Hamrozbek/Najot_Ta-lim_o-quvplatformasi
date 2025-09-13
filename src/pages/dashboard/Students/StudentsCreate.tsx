@@ -12,7 +12,6 @@ const StudentsCreate = () => {
   const { id } = useParams()
   const [loading, setLoading] = useState<boolean>(false)
 
-  // Form state
   const [studentId, setStudentId] = useState<number | undefined>()
   const [name, setName] = useState<string>("")
   const [surname, setSurname] = useState<string>("")
@@ -23,12 +22,11 @@ const StudentsCreate = () => {
   const [study, setStudy] = useState<string>("")
   const [phone, setPhone] = useState<string>("")
   const [email, setEmail] = useState<string>("")
+  const [status, setStatus] = useState<boolean>(true) 
 
-  // Guruhlar va viloyatlar
   const [groups, setGroups] = useState<{ label: string; value: string }[]>([])
   const [regions, setRegions] = useState<{ label: string; value: string }[]>([])
 
-  // Guruh va viloyatlarni olish
   useEffect(() => {
     instance().get("/groups").then(res => {
       setGroups(res.data.data.map((item: { id: number; name: string }) => ({
@@ -44,7 +42,6 @@ const StudentsCreate = () => {
     })
   }, [])
 
-  // Agar id bo'lsa, student ma'lumotlarini olish (update)
   useEffect(() => {
     if (!id) return
     setLoading(true)
@@ -60,17 +57,18 @@ const StudentsCreate = () => {
       setStudy(data.study)
       setPhone(data.phone)
       setEmail(data.email)
+      setStatus(data.status)
     })
       .catch(() => toast.error("Student ma’lumotini olishda xatolik"))
       .finally(() => setLoading(false))
   }, [id])
 
-  // Create yoki Update funksiyasi
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
 
-    const data = { studentId, name, surname, age, groupId, regionId, district, study, phone, email }
+    const data = { 
+      studentId, name, surname, age, groupId, regionId, district, study, phone, email, status}
 
     const request = id ? instance().patch(`/students/${id}`, data) : instance().post(`/students`, data)
 
@@ -79,8 +77,7 @@ const StudentsCreate = () => {
         onClose: () => navigate(-1),
         autoClose: 1000,
       })
-    })
-      .catch(() => toast.error("Xatolik yuz berdi"))
+    }).catch(() => toast.error("Xatolik yuz berdi"))
       .finally(() => setLoading(false))
   }
 
@@ -101,6 +98,17 @@ const StudentsCreate = () => {
           <Input value={email} onChange={(e) => setEmail(e.target.value)} allowClear placeholder="Email" size="large" />
           <Input value={district} onChange={(e) => setDistrict(e.target.value)} allowClear placeholder="Tuman" size="large" />
           <Input value={study} onChange={(e) => setStudy(e.target.value)} allowClear placeholder="O‘qish joyi" size="large" />
+          <Select
+            value={status}
+            onChange={(v) => setStatus(v)}
+            className="!w-full"
+            size="large"
+            placeholder="Status tanlang"
+            options={[
+              { label: "Faol", value: true },
+              { label: "Nofaol", value: false }
+            ]}
+          />
         </div>
       </div>
     </form>

@@ -20,9 +20,15 @@ export interface GroupsType {
         createdAt: string
     },
     key: number,
-    roomName?:string,
-    stackName?:string,
-    action:ReactNode,
-    label?:string,
-    value?:number
+    roomName?: string,
+    stackName?: string,
+    action: ReactNode,
+    label?: string,
+    value?: number,
+    mainTeacher?: {
+        name?: string,
+        surname?: string,
+        phone?: number
+    }
+
 }

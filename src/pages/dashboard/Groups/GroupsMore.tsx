@@ -12,28 +12,28 @@ const GroupsMore = () => {
   const { id } = useParams()
 
   const [groupData, setGroupData] = useState<GroupsType>()
+  const [groupStudents, setGroupStudents] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [deleteModal, setDeleteModal] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  // Bog'langan ma'lumotlar
-  const [groupStudents, setGroupStudents] = useState<GroupsType[]>([])
-
-  // Guruh ma'lumotini olish
   useEffect(() => {
     if (!id) return
     setLoading(true)
     instance().get(`/groups/${id}`).then(res => {
-      setGroupData(res.data)
-      setGroupStudents(res.data.students || [])
+      const group = res.data
+      setGroupData(group)
+
+      const mappedStudents = (group.students || []).map((s: any, i: number) => ({
+        ...s,
+        key: i + 1,
+        status: s.status ? "Faol" : "Nofaol"
+      }))
+      setGroupStudents(mappedStudents)
     })
       .catch(() => toast.error("Guruh ma'lumotini olishda xatolik"))
       .finally(() => setLoading(false))
   }, [id])
-
-  function handleDelete() {
-    setDeleteModal(true)
-  }
 
   const handleDeleteGroup = () => {
     setDeleteLoading(true)
@@ -48,7 +48,6 @@ const GroupsMore = () => {
       .finally(() => setDeleteLoading(false))
   }
 
-  // O'quvchilar jadvali uchun ustunlar
   const studentColumns = [
     { title: "ID", dataIndex: "key" },
     { title: "Ism", dataIndex: "name" },
@@ -75,7 +74,7 @@ const GroupsMore = () => {
               <h2 className="font-bold text-[22px]">{groupData?.name}</h2>
             </div>
             <div className="flex items-center gap-4">
-              <Button onClick={handleDelete} className="!bg-red-500" size="large" type="primary" icon={<DeleteOutlined />} />
+              <Button onClick={() => setDeleteModal(true)} className="!bg-red-500" size="large" type="primary" icon={<DeleteOutlined />} />
               <Button onClick={() => navigate(`/groups/${id}/update`)} className="!bg-green-600" size="large" type="primary" icon={<EditOutlined />}>
                 O‘zgartirish
               </Button>
@@ -90,20 +89,30 @@ const GroupsMore = () => {
               <p><b>Yo‘nalish:</b> {groupData?.stack?.name}</p>
               <p><b>Xona:</b> {groupData?.room?.name}</p>
               <p><b>Status:</b> {groupData?.status ? "Aktiv" : "Aktiv emas"}</p>
+              <p><b>Ustoz:</b> {groupData?.mainTeacher?.name} {groupData?.mainTeacher?.surname}</p>
+              <p><b>Ustoz telefoni:</b> {groupData?.mainTeacher?.phone}</p>
               <p><b>Yaratilgan sana:</b> {groupData?.createdAt?.split("T")[0]}</p>
             </div>
           </div>
 
-          {/* Bog'langan o'quvchilar jadvali */}
+          {/* O'quvchilar jadvali */}
           <div className="mt-10">
-            <h2 className="font-bold text-[20px] mb-4">Guruhdagi o‘quvchilar</h2>
-            <CustomTable loading={loading} columns={studentColumns} data={groupStudents} />
+            <h3 className="font-bold text-xl mb-4 text-center">Bog‘langan o‘quvchilar</h3>
+            <CustomTable columns={studentColumns} data={groupStudents} />
           </div>
         </>
       )}
 
-      {/* Delete modal */}
-      <Modal open={deleteModal} confirmLoading={deleteLoading} title="Guruhni o‘chirmoqchimisiz?" onCancel={() => setDeleteModal(false)} onOk={handleDeleteGroup} okText="O‘chirish" cancelText="Bekor qilish" okButtonProps={{ type: "primary", className: "!bg-[#bc8e5b]" }} />
+      <Modal
+        open={deleteModal}
+        confirmLoading={deleteLoading}
+        title="Guruhni o‘chirmoqchimisiz?"
+        onCancel={() => setDeleteModal(false)}
+        onOk={handleDeleteGroup}
+        okText="O‘chirish"
+        cancelText="Bekor qilish"
+        okButtonProps={{ type: "primary", className: "!bg-[#bc8e5b]" }}
+      />
     </div>
   )
 }
